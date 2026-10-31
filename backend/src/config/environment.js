@@ -16,6 +16,7 @@ const env = {
   },
   googleMapsApiKey: process.env.GOOGLE_MAPS_API_KEY || "",
   openWeatherApiKey: process.env.OPENWEATHER_API_KEY || "",
+  geminiApiKey: process.env.GEMINI_API_KEY || "",
   cloudinary: {
     cloudName: process.env.CLOUDINARY_CLOUD_NAME || "",
     apiKey: process.env.CLOUDINARY_API_KEY || "",

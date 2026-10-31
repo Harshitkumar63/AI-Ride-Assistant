@@ -714,3 +714,83 @@
     height: 20px !important;
   }
 }
+
+/* ==========================================
+   AI ASSISTANT INTEGRATION (VIEW TABS & BUTTONS)
+   ========================================== */
+
+.mt-ride-view-tabs {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 30px 0 35px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #1f201e;
+}
+
+.mt-ride-view-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 24px;
+  background: #121312;
+  border: 1px solid #292a27;
+  color: #858680;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.mt-ride-view-tab:hover {
+  background: #1a1b18;
+  color: #e8e5de;
+  border-color: #3e403c;
+}
+
+.mt-ride-view-tab.active {
+  background: #181917;
+  color: #c9a45d;
+  border-color: #c9a45d;
+  box-shadow: 0 4px 20px rgba(201, 164, 93, 0.15);
+}
+
+.mt-ride-ai-badge {
+  display: inline-block;
+  padding: 2px 7px;
+  background: #c9a45d;
+  color: #0b0c0b;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  border-radius: 2px;
+  margin-left: 2px;
+}
+
+.mt-ride-ask-ai-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 10px;
+  background: rgba(201, 164, 93, 0.08);
+  border: 1px solid rgba(201, 164, 93, 0.3);
+  color: #c9a45d;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-left: auto;
+  margin-right: 12px;
+}
+
+.mt-ride-ask-ai-btn:hover {
+  background: #c9a45d;
+  color: #0b0c0b;
+  border-color: #c9a45d;
+  transform: translateY(-1px);
+}

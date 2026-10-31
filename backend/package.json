@@ -16,6 +16,7 @@
   "license": "ISC",
   "dependencies": {
     "@aws-sdk/client-sns": "^3.1127.0",
+    "@google/generative-ai": "^0.24.1",
     "@sendgrid/mail": "^8.1.6",
     "agora-token": "^2.0.6",
     "bcryptjs": "^3.0.3",

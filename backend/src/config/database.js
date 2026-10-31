@@ -9,12 +9,28 @@ const connectDB = async () => {
     if (process.env.NODE_ENV === "test" && !process.env.DATABASE_URL) {
       return;
     }
-    const dbUrl = process.env.DATABASE_URL || env.database.url;
+    let dbUrl = process.env.DATABASE_URL || env.database.url;
     if (!dbUrl) {
       throw new Error("DATABASE_URL is not configured.");
     }
-    const conn = await mongoose.connect(dbUrl);
-    console.log(`MongoDB Connected: ${conn.connection.host}`);
+    let conn;
+    try {
+      conn = await mongoose.connect(dbUrl, { serverSelectionTimeoutMS: 3000 });
+      console.log(`MongoDB Connected: ${conn.connection.host}`);
+    } catch (connErr) {
+      if (process.env.NODE_ENV !== "production") {
+        console.warn(
+          `Could not connect to ${dbUrl}. Starting in-memory MongoDB for development...`
+        );
+        const { MongoMemoryServer } = require("mongodb-memory-server");
+        const mongod = await MongoMemoryServer.create();
+        const memUri = mongod.getUri();
+        conn = await mongoose.connect(memUri);
+        console.log(`MongoDB Connected (in-memory): ${memUri}`);
+      } else {
+        throw connErr;
+      }
+    }
 
     // Clean up users collection: remove phoneNumber and password fields, and drop old phone index
     if (process.env.NODE_ENV !== "test") {

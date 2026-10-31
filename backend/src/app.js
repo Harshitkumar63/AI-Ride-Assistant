@@ -18,6 +18,7 @@ const vehicleRoutes = require("./routes/mototribe/vehicleRoutes");
 const expenseRoutes = require("./routes/mototribe/expenseRoutes");
 const routeReportRoutes = require("./routes/mototribe/routeReportRoutes");
 const presenceRoutes = require("./routes/mototribe/presenceRoutes");
+const aiAssistantRoutes = require("./routes/mototribe/aiAssistantRoutes");
 const connectionRoutes = require("./routes/core/connectionRoutes");
 const notificationRoutes = require("./routes/core/notificationRoutes");
 const careerRoutes = require("./routes/core/careerRoutes");
@@ -207,8 +208,12 @@ app.use("/api/mototribe", passportRoutes);
 app.use("/api/v1/mototribe", journalRoutes);
 app.use("/api/mototribe", journalRoutes);
 
+app.use("/api/v1/mototribe", aiAssistantRoutes);
+app.use("/api/mototribe", aiAssistantRoutes);
+
 app.use("/api/v1/mototribe", chatRoutes);
 app.use("/api/mototribe", chatRoutes);
+
 
 app.use("/api/v1/mototribe", fuelPriceRoutes);
 app.use("/api/mototribe", fuelPriceRoutes);
@@ -227,6 +232,7 @@ app.use("/api/mototribe", routeReportRoutes);
 
 app.use("/api/v1/mototribe", presenceRoutes);
 app.use("/api/mototribe", presenceRoutes);
+
 
 // 404 Route Handler
 app.use((req, res) => {

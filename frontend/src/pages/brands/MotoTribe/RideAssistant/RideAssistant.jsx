@@ -1,4 +1,6 @@
-﻿import { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import { CheckSquare, Bot, Sparkles } from "lucide-react";
+import AIChatAssistant from "./AIChatAssistant";
 import "./RideAssistant.css";
 
 const STORAGE_KEY = "mototribeAssistantChecks";
@@ -81,6 +83,8 @@ function loadChecklist() {
 }
 
 export default function RideAssistant() {
+  const [activeView, setActiveView] = useState("checklist"); // "checklist" | "copilot"
+  const [aiTopicPrompt, setAiTopicPrompt] = useState(null);
   const [activeOption, setActiveOption] = useState("route");
 
   const [completedChecks, setCompletedChecks] =
@@ -183,12 +187,45 @@ export default function RideAssistant() {
           </div>
         </header>
 
-        {/* Navigation */}
+        {/* View Mode Switcher */}
+        <div className="mt-ride-view-tabs" role="tablist">
+          <button
+            type="button"
+            role="tab"
+            aria-selected={activeView === "checklist"}
+            className={`mt-ride-view-tab ${activeView === "checklist" ? "active" : ""}`}
+            onClick={() => setActiveView("checklist")}
+          >
+            <CheckSquare size={14} />
+            <span>PRE-RIDE CHECKLIST</span>
+          </button>
 
-        <nav
-          className="mt-ride-navigation"
-          aria-label="Ride assistant categories"
-        >
+          <button
+            type="button"
+            role="tab"
+            aria-selected={activeView === "copilot"}
+            className={`mt-ride-view-tab ${activeView === "copilot" ? "active" : ""}`}
+            onClick={() => {
+              setActiveView("copilot");
+              setAiTopicPrompt(null);
+            }}
+          >
+            <Bot size={14} />
+            <span>AI RIDE CO-PILOT</span>
+            <span className="mt-ride-ai-badge">LIVE AI</span>
+          </button>
+        </div>
+
+        {activeView === "copilot" ? (
+          <AIChatAssistant initialTopic={aiTopicPrompt} />
+        ) : (
+          <>
+            {/* Navigation */}
+
+            <nav
+              className="mt-ride-navigation"
+              aria-label="Ride assistant categories"
+            >
           {assistantOptions.map((option) => (
             <button
               type="button"
@@ -317,6 +354,28 @@ export default function RideAssistant() {
                     </span>
 
                     <span
+                      role="button"
+                      tabIndex={0}
+                      className="mt-ride-ask-ai-btn"
+                      title="Ask AI Copilot for advice on this"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setAiTopicPrompt(tip);
+                        setActiveView("copilot");
+                      }}
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter" || e.key === " ") {
+                          e.stopPropagation();
+                          setAiTopicPrompt(tip);
+                          setActiveView("copilot");
+                        }
+                      }}
+                    >
+                      <Sparkles size={10} />
+                      <span>Ask AI</span>
+                    </span>
+
+                    <span
                       className="mt-ride-action-arrow"
                       aria-hidden="true"
                     >
@@ -328,6 +387,8 @@ export default function RideAssistant() {
             </div>
           </div>
         </div>
+        </>
+        )}
 
         {/* Quick assistance */}
 
